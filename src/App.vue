@@ -1,7 +1,8 @@
 <template>
-  <Header :getQuery="getSearchQuery"/>
-  <SearchResult v-show="showResults" :searchResults="filteredLocations" :getLocation="getSelectedLocation"/>
+  <Header :getQuery="getSearchQuery" ref="header"/>
+  <SearchResult v-show="showResults" :searchResults="filteredLocations" :getLocation="getSelectedLocation" :searchQuery="searchQuery"/>
   <WeatherInfo 
+    v-if="showWeather"
     :name="location.name"
     :country="location.country"
     :lastUpdate="current.last_updated"
@@ -13,8 +14,13 @@
     :windSpeed="current.wind_kph"
     :windDirection="current.wind_dir"
     :humidity="current.humidity"
+    :precip="current.precip_mm"
     :uvIndex="current.uv"
+
   />
+  <div class="replacement-text" v-if="!showWeather">
+    <p @click="focusOnInput">Search for a location first.</p>
+  </div>
   <Footer />
 </template>
 
@@ -38,6 +44,7 @@ export default {
   },
   data () {
     return {
+      showWeather: false,
       location: [],
       current: [],
       condition: [],
@@ -45,7 +52,7 @@ export default {
       searchQuery: '',
       filteredLocations: [],
       showResults: false,
-      selectedLocation: [],
+      selectedLocation: ''
     }
   },
   methods: {
@@ -60,18 +67,7 @@ export default {
                          this.isDay = response.data.current.is_day))
     },
 
-    getSearchQuery(query) {
-      if(query.length > 2) {
-        this.searchQuery = query
-        this.fetchSearchData()
-        // document.getElementsByClassName('list').style.display="block"
-        this.showResults = true
-      }
-      else {
-        alert("Please enter more than 2 characters.")
-      }
-    },
-
+    // Fetch all locations based on the search query
     fetchSearchData() {
       axios
       .get('https://api.weatherapi.com/v1/search.json', {
@@ -82,24 +78,43 @@ export default {
       })
       .then(response => (this.filteredLocations = response.data))
     },
-    
-    getSelectedLocation(searchResult) {
-      alert(searchResult.name)
+
+    // Get the search query from the Header
+    getSearchQuery(query) {
+      if(query.length > 2) {
+        this.searchQuery = query
+        this.fetchSearchData()
+        this.showResults = true
+      } else {
+        alert("Please enter more than 2 characters.")
+      }
     },
 
+    // Get the selected location and fetch the correct data
+    getSelectedLocation(searchResult) {
+      this.selectedLocation = searchResult
+      this.fetchData()
+      this.showWeather = true
+      this.showResults = false
+      this.$refs.header.emptyInput()
+    },
+
+    // Check whether it is day of night in the current location
     checkIfDay() {
       if(this.isDay === 1) {
         document.body.style.background = "rgb(85,174,255)"
         document.body.style.background = "linear-gradient(135deg, rgba(85,174,255,1) 0%, rgba(101,67,255,1) 100%)"
-      }
-      else {
+      } else {
         document.body.style.background = "rgb(28, 65, 100)"
         document.body.style.background = "linear-gradient(135deg, rgb(28, 65, 100) 0%, rgb(34, 23, 82) 100%)"
       }
+    },
+
+    // Focus on the search input when the weather replacement text is clicked
+    focusOnInput() {
+      this.$refs.header.focusOnInput()
     }
-  },
-  created () {
-    this.fetchData()
+    
   },
   updated () {
     this.checkIfDay()
@@ -108,7 +123,7 @@ export default {
     axiosParams() {
       const params = new URLSearchParams();
       params.append('key', 'ce4eb1b20d3f42a4b64152404212209')
-      params.append('q', 'Eindhoven')
+      params.append('q', this.selectedLocation.name)
       return params;
     }
   }
@@ -123,11 +138,26 @@ export default {
   font-family: 'Poppins ', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('/assets/images/nebula.jpg');
 }
 
 h1, h2, p {
   margin: 0;
+}
+
+.replacement-text {
+  position: relative;
+  height: calc(100vh - 70px);
+  text-align: center;
+  font-size: 1.3rem;
+  width: 100%;
+  
+  p {
+    position: absolute;
+    top: calc(50% - 35px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
 }
 
 </style>

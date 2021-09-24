@@ -1,5 +1,5 @@
 <template>
-    <p class="last-update">Last update: {{ lastUpdate }}<fa icon="sync" size="sm" @click="fetchData"/></p>
+    <p class="last-update">Last update: {{ lastUpdate }}<fa icon="sync" size="sm" ref="refresh" @click="fetchData"/></p>
     <div class="weather-info">
         <div class="top-info">
             <img :src="icon" height="65" width="65"/>
@@ -17,7 +17,7 @@
         </div>
         
         <div class="weather-details card">
-            <div class="row">
+            <div class="col">
                 <div class="detail-item">
                     <fa icon="wind" size="lg"/>
                     <div class="detail-text">
@@ -26,14 +26,22 @@
                     </div>
                 </div>
                 <div class="detail-item">
+                    <fa icon="cloud-rain" size="lg"/>
+                    <div class="detail-text">
+                        <p>Precipitation</p>
+                        <h3>{{ precip }}<span class="small-text"> mm</span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="detail-item">
                     <fa icon="tint" size="lg"/>
                     <div class="detail-text">
                         <p>Humidity</p>
                         <h3>{{ humidity }}<span class="small-text">%</span></h3>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+                
                 <div class="detail-item">
                     <fa icon="sun" size="lg"/>
                     <div class="detail-text">
@@ -60,6 +68,7 @@ export default {
         windSpeed: Number,
         windDirection: String,
         humidity: Number,
+        precip: Number,
         uvIndex: Number,
     },
     data () {
@@ -84,11 +93,13 @@ export default {
 @import '../assets/styles/style.scss';
 
 .last-update {
+    position: absolute;
+    width: 100%;
     text-align: center;
     font-size: 1.2rem;
-    line-height: 60px;
-    height: 60px;
+    margin: 30px 0;
     opacity: 0.6;
+    z-index: 2;
     
     svg {
         margin-left: 10px;
@@ -104,9 +115,9 @@ export default {
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    height: calc(100vh - 70px - 60px); /*Height minus Header and .last-update*/
+    height: calc(100vh - 70px); /*Height minus Header*/
     width: 80%;
-    min-height: 580px;
+    min-height: 640px;
 
     h1 {
         font-size: 6rem;
@@ -151,13 +162,12 @@ export default {
 
     .weather-details {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
 
-        .row {
+        .col {
             display: flex;
-            flex-direction: row;
-            // justify-content: space-between;
+            flex-direction: column;
         }
 
         .detail-item {
@@ -165,10 +175,12 @@ export default {
             flex-direction: row;
             align-content: center;
             justify-content: flex-start;
-            margin: 15px 40px;
+            margin: 15px 25px;
+            // width: 160px;
+            width: auto;
 
             svg {
-                margin-top: 3.5px;
+                width: 21px;
             }
         }
 
@@ -194,7 +206,7 @@ export default {
 
     .card {
         text-align: center;
-        padding: 10px 25px;
+        padding: 10px 30px;
         background-color: rgba(255, 255, 255, 0.1);
         border-radius: 25px;
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.4);
@@ -207,35 +219,28 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
-    .weather-details {
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
+    .weather-info {
+        width: 90%;
 
-        .detail-item {
-            margin: 15px 10px !important;
-            width: auto;
-            padding: 0 5px;
+        .weather-details {
 
-            .detail-text {
-                p {
-                    font-size: 1rem !important;
-                }
+            .detail-item {
+                margin: 15px 10px !important;
 
-                h3 {
-                    font-size: 1rem !important;
-                }
+                .detail-text {
 
-                .small-text {
-                    font-size: 1rem !important;
+                    p, h3, .small-text {
+                        font-size: 1rem !important;
+                    }
                 }
             }
         }
-    }
 
-    .card {
+        .card {
         width: 100% !important;
-        padding: 10px !important;
+        padding: 8px 0px !important;
+        margin: 35px 0;
+        }
     }
 }
 

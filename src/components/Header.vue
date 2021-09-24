@@ -1,8 +1,8 @@
 <template>
     <div class="header">
         <h1>Weather App</h1>
-        <form v-on:submit.prevent="getQuery(searchQuery)">
-            <input type="search" placeholder="Search location..." v-model="searchQuery" disabled/>
+        <form v-on:submit.prevent="getQuery(searchQuery)" autocomplete="off">
+            <input type="search" id="search-input" placeholder="Search location..." v-model="searchQuery" ref="searchInput"/>
             <button type="submit"><fa icon="search" size="lg"/></button>
         </form>
     </div>
@@ -16,6 +16,14 @@ export default {
     data () {
         return {
             searchQuery: ''
+        }
+    },
+    methods: {
+        focusOnInput() {
+            this.$refs.searchInput.focus()
+        },
+        emptyInput() {
+            this.$refs.searchInput.value = ''
         }
     }
 }
@@ -63,8 +71,12 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
+    .header {
+        padding: 0 15px;
+    }
+    
     h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     input {
