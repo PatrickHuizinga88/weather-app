@@ -1,3 +1,3 @@
 module.exports = {
-    publicPath: '/weather-app/'
+    publicPath: '/weather-app-demo/'
 }
