@@ -135,7 +135,7 @@ export default {
 @import './assets/styles/style.scss';
 
 #app {
-  font-family: 'Poppins ', Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
