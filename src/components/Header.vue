@@ -49,13 +49,19 @@ export default {
 
         input {
             border: 0;
-            border-bottom: 2px solid #fff;
-            background-color: rgba(0, 0, 0, 0);
-            height: 30px;
-            font-size: 1.1rem;
+            // border-bottom: 2px solid #fff;
+            // background-color: rgba(0, 0, 0, 0);
+            background-color: white;
+            border-radius: 25px;
+            color: black;
+            height: 35px;
+            // font-size: 1.1rem;
+            font-size: 1rem;
+            padding-left: 15px;
 
             &::placeholder {
-                color: #fff;
+                // color: #fff;
+                color: #555;
                 opacity: 0.75;
             }
         }
@@ -80,21 +86,23 @@ export default {
     }
 
     input {
-            border: 0;
-            border-bottom: 2px solid #fff;
-            background-color: rgba(0, 0, 0, 0);
-            height: 30px;
-            font-size: 1.1rem;
-            width: 160px;
+        border: 0;
+        // border-bottom: 2px solid #fff;
+        // background-color: rgba(0, 0, 0, 0);
+        background-color: white;
+        border-radius: 25px;
+        height: 30px;
+        font-size: 1.1rem;
+        width: 160px;
 
-            &::placeholder {
-                color: #fff
-            }
+        &::placeholder {
+            color: #fff
         }
+    }
 
-        button {
-            display: none;
-        }
+    button {
+        display: none;
+    }
 }
 
 </style>

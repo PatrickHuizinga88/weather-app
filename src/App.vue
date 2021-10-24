@@ -30,12 +30,15 @@ import Header from './components/Header.vue'
 import SearchResult from './components/SearchResult.vue'
 import WeatherInfo from './components/WeatherInfo.vue'
 import Footer from './components/Footer.vue'
+// import { useMeta } from 'vue-meta'
 
 export default {
+  // setup() {
+  //   useMeta({
+  //       title: 'Weather App'
+  //   })
+  // },
   name: 'App',
-  metaInfo: {
-      title: 'Weather App'
-  },
   components: {
       Header,
       SearchResult,

@@ -4,8 +4,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import App from './App.vue'
 
+// import { createMetaManager } from 'vue-meta'
+
 library.add(fas)
+// const metaManager = createMetaManager()
 
 createApp(App)
-    .component('fa', FontAwesomeIcon)
-    .mount('#app')
+        // .use(metaManager)
+        .component('fa', FontAwesomeIcon)
+        .mount('#app')
