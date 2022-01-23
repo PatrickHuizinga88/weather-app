@@ -3,7 +3,7 @@
         <p>Showing {{searchResults.length}} results for: '{{searchQuery}}'</p>
         <div class="item" v-for="searchResult in searchResults" v-bind:key="searchResult.id" @click="getLocation(searchResult)">
             <fa icon="map-marker-alt" />
-            <p>{{searchResult.name}}</p>
+            <p>{{searchResult.name}}, {{searchResult.country}}</p>
         </div>
     </div>
 </template>
