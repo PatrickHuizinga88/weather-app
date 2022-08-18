@@ -1,7 +1,7 @@
 <template>
-    <p class="last-update">Last update: {{ lastUpdate }}<fa icon="sync" size="sm" ref="refresh" @click="fetchData"/></p>
+    <p class="last-update mb-3">Last update: {{ lastUpdate }}</p> <!-- TODO: Add refresh button -->
     <div class="weather-info">
-        <div class="top-info">
+        <div class="top-info my-3">
             <img :src="icon" height="65" width="65"/>
             <div class="d-flex align-items-center">
                 <h2 class="mb-0">Today</h2>

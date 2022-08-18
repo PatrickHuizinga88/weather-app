@@ -1,14 +1,7 @@
 <template>
-    <!-- <div class="header">
-
-        <form v-on:submit.prevent="getQuery(searchQuery)" autocomplete="off">
-            <input type="search" id="search-input" placeholder="Search location..." v-model="searchQuery" ref="searchInput"/>
-            <button type="submit"><fa icon="search" size="lg"/></button>
-        </form>
-    </div> -->
     <header>
         <nav class="navbar" :class="{'bg-dark': showSearchbar}">
-            <div class="container">
+            <div class="container-fluid p-2 px-lg-4">
                 <a class="navbar-brand text-white" v-if="!showSearchbar">
                     <h1>Weather App</h1>
                 </a>
@@ -68,5 +61,12 @@ export default {
 }
 </script>
 
-<style slang="scss">
+<style lang="scss">
+.list-group-item:not(:first-of-type) {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #111 !important;
+    }
+}
 </style>
