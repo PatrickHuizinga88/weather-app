@@ -3,32 +3,32 @@
     <div class="weather-info">
         <div class="top-info">
             <img :src="icon" height="65" width="65"/>
-            <div class="date">
-                <h2>Today</h2>
+            <div class="d-flex align-items-center">
+                <h2 class="mb-0">Today</h2>
                 <p>{{ localTime }}</p>
             </div>
         </div>
-        <h1>{{ temp }}&#176;</h1>
-        <h3>{{ name }}, {{ country }}</h3>
+        <h1 class="mb-3">{{ temp }}&#176;</h1>
+        <h3 class="fs-4">{{ name }}, {{ country }}</h3>
         <div class="center-info">
-            <p class="text">{{ text }}</p>
+            <p class="text mb-0">{{ text }}</p>
             <span>&#9679;</span>
             <p class="sub-text">Feels like: <b>{{ feelTemp }}&#176;</b></p>
         </div>
-        
+
         <div class="weather-details card">
             <div class="col">
                 <div class="detail-item">
                     <fa icon="wind" size="lg"/>
                     <div class="detail-text">
-                        <p>Wind</p>
+                        <p class="mb-0">Wind</p>
                         <h3>{{ windDirection }} {{ windSpeed }} <span class="small-text">km/h</span></h3>
                     </div>
                 </div>
                 <div class="detail-item">
                     <fa icon="cloud-rain" size="lg"/>
                     <div class="detail-text">
-                        <p>Precipitation</p>
+                        <p class="mb-0">Precipitation</p>
                         <h3>{{ precip }}<span class="small-text"> mm</span></h3>
                     </div>
                 </div>
@@ -37,15 +37,15 @@
                 <div class="detail-item">
                     <fa icon="tint" size="lg"/>
                     <div class="detail-text">
-                        <p>Humidity</p>
+                        <p class="mb-0">Humidity</p>
                         <h3>{{ humidity }}<span class="small-text">%</span></h3>
                     </div>
                 </div>
-                
+
                 <div class="detail-item">
                     <fa icon="sun" size="lg"/>
                     <div class="detail-text">
-                        <p>UV-index</p>
+                        <p class="mb-0">UV-index</p>
                         <h3>{{ uvIndex }}<span class="small-text"> of 10</span></h3>
                     </div>
                 </div>
@@ -90,7 +90,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/styles/style.scss';
+@import '../assets/scss/style.scss';
 
 .last-update {
     position: absolute;
@@ -100,7 +100,7 @@ export default {
     margin: 30px 0;
     opacity: 0.6;
     z-index: 2;
-    
+
     svg {
         margin-left: 10px;
         cursor: pointer;
@@ -211,7 +211,7 @@ export default {
         border-radius: 25px;
         box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(5px);
-        border-top: 1px solid rgba(255, 255, 255, 0.5); 
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
         border-left: 1px solid rgba(255, 255, 255, 0.5);
         width: auto;
         margin: 35px auto 0 auto;

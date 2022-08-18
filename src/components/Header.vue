@@ -1,108 +1,72 @@
 <template>
-    <div class="header">
-        <h1>Weather App</h1>
+    <!-- <div class="header">
+
         <form v-on:submit.prevent="getQuery(searchQuery)" autocomplete="off">
             <input type="search" id="search-input" placeholder="Search location..." v-model="searchQuery" ref="searchInput"/>
             <button type="submit"><fa icon="search" size="lg"/></button>
         </form>
-    </div>
+    </div> -->
+    <header>
+        <nav class="navbar" :class="{'bg-dark': showSearchbar}">
+            <div class="container">
+                <a class="navbar-brand text-white" v-if="!showSearchbar">
+                    <h1>Weather App</h1>
+                </a>
+                <button @click="showSearchbar = true" class="btn btn-link" v-if="!showSearchbar">
+                    <i class="bi bi-geo-alt-fill fs-4"></i>
+                </button>
+
+                <form class="d-flex align-items-center w-100" role="search" v-if="showSearchbar">
+                    <button class="btn btn-link" @click.prevent="showSearchbar = false"><i class="bi bi-chevron-left"></i></button>
+                    <input @input="getLocation" v-model="searchQuery" class="form-control bg-dark border-0" type="search" placeholder="Search location" aria-label="Search" ref="searchbar">
+                </form>
+            </div>
+        </nav>
+    </header>
+
+    <SearchResult :locations="locations" :searchQuery="searchQuery" @setLocation="setLocation" v-if="showSearchbar"/>
 </template>
 
 <script>
+import SearchResult from '@/components/SearchResult'
+
 export default {
-    props: {
-        getQuery: Function
-    },
+    components: {SearchResult},
     data () {
         return {
-            searchQuery: ''
+            showSearchbar: false,
+            searchQuery: '',
+            locations: [],
         }
     },
     methods: {
-        focusOnInput() {
-            this.$refs.searchInput.focus()
+        // Fetch all locations based on the search query
+        getLocation() {
+            fetch(`https://api.weatherapi.com/v1/search.json?${new URLSearchParams({
+                key: 'ce4eb1b20d3f42a4b64152404212209',
+                q: this.searchQuery
+            })}`)
+            .then(response => response.json())
+            .then(data => {
+                this.locations = data
+            })
         },
-        emptyInput() {
-            this.$refs.searchInput.value = ''
+        setLocation(location) {
+            this.showSearchbar = false
+            this.$emit('setLocation', location)
+        }
+    },
+    watch: {
+        showSearchbar(newVal) {
+            if (newVal) {
+                this.$nextTick(() => {
+                    this.$refs.searchbar.focus()
+                })
+            }
         }
     }
 }
 </script>
 
-<style lang="scss">
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    padding: 0 30px;
-    height: 70px;
-    z-index: 2;
-
-    h1 {
-        line-height: 70px;
-        cursor: default;
-    }
-
-    form {
-        line-height: 70px;
-
-        input {
-            border: 0;
-            // border-bottom: 2px solid #fff;
-            // background-color: rgba(0, 0, 0, 0);
-            background-color: white;
-            border-radius: 25px;
-            color: black;
-            height: 35px;
-            // font-size: 1.1rem;
-            font-size: 1rem;
-            padding-left: 15px;
-
-            &::placeholder {
-                // color: #fff;
-                color: #555;
-                opacity: 0.75;
-            }
-        }
-
-        button {
-            background-color: rgba(0, 0, 0, 0);
-            border: 0;
-            cursor: pointer;
-            height: 34px;
-            width: 60px;
-        }
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .header {
-        padding: 0 15px;
-    }
-    
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    input {
-        border: 0;
-        // border-bottom: 2px solid #fff;
-        // background-color: rgba(0, 0, 0, 0);
-        background-color: white;
-        border-radius: 25px;
-        height: 30px;
-        font-size: 1.1rem;
-        width: 160px;
-
-        &::placeholder {
-            color: #fff
-        }
-    }
-
-    button {
-        display: none;
-    }
-}
-
+<style slang="scss">
 </style>

@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <p>Made in Vue by <a href="https://patrickhuizinga88.github.io/">Patrick Huizinga</a></p>
+        <p class="mb-0">Made in Vue by <a href="https://patrickhuizinga88.github.io/">Patrick Huizinga</a></p>
     </footer>
 </template>
 
