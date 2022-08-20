@@ -1,19 +1,19 @@
 <template>
-    <p class="last-update mb-3">Last update: {{ lastUpdate }}</p> <!-- TODO: Add refresh button -->
+    <p class="last-update mb-3">Last update: {{ current.last_updated }}</p> <!-- TODO: Add refresh button -->
     <div class="weather-info">
         <div class="top-info my-3">
-            <img :src="icon" height="65" width="65"/>
+            <img :src="condition.icon" height="65" width="65"/>
             <div class="d-flex align-items-center">
                 <h2 class="mb-0">Today</h2>
-                <p>{{ localTime }}</p>
+                <p>{{ location.localtime }}</p>
             </div>
         </div>
-        <h1 class="mb-3">{{ temp }}&#176;</h1>
-        <h3 class="fs-4">{{ name }}, {{ country }}</h3>
+        <h1 class="mb-3">{{ current.temp_c }}&#176;</h1>
+        <h3 class="fs-4">{{ location.name }}, {{ location.country }}</h3>
         <div class="center-info">
-            <p class="text mb-0">{{ text }}</p>
+            <p class="text mb-0">{{ condition.text }}</p>
             <span>&#9679;</span>
-            <p class="sub-text">Feels like: <b>{{ feelTemp }}&#176;</b></p>
+            <p class="sub-text">Feels like: <b>{{ current.feelslike_c }}&#176;</b></p>
         </div>
 
         <div class="weather-details card">
@@ -22,14 +22,14 @@
                     <fa icon="wind" size="lg"/>
                     <div class="detail-text">
                         <p class="mb-0">Wind</p>
-                        <h3>{{ windDirection }} {{ windSpeed }} <span class="small-text">km/h</span></h3>
+                        <h3>{{ current.wind_dir }} {{ current.wind_kph }} <span class="small-text">km/h</span></h3>
                     </div>
                 </div>
                 <div class="detail-item">
                     <fa icon="cloud-rain" size="lg"/>
                     <div class="detail-text">
                         <p class="mb-0">Precipitation</p>
-                        <h3>{{ precip }}<span class="small-text"> mm</span></h3>
+                        <h3>{{ current.precip_mm }}<span class="small-text"> mm</span></h3>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <fa icon="tint" size="lg"/>
                     <div class="detail-text">
                         <p class="mb-0">Humidity</p>
-                        <h3>{{ humidity }}<span class="small-text">%</span></h3>
+                        <h3>{{ current.humidity }}<span class="small-text">%</span></h3>
                     </div>
                 </div>
 
@@ -46,7 +46,7 @@
                     <fa icon="sun" size="lg"/>
                     <div class="detail-text">
                         <p class="mb-0">UV-index</p>
-                        <h3>{{ uvIndex }}<span class="small-text"> of 10</span></h3>
+                        <h3>{{ current.uv }}<span class="small-text"> of 10</span></h3>
                     </div>
                 </div>
             </div>
@@ -57,19 +57,9 @@
 <script>
 export default {
     props: {
-        name: String,
-        country: String,
-        icon: String,
-        lastUpdate: String,
-        localTime: String,
-        text: String,
-        temp: Number,
-        feelTemp: Number,
-        windSpeed: Number,
-        windDirection: String,
-        humidity: Number,
-        precip: Number,
-        uvIndex: Number,
+        location: Object,
+        current: Object,
+        condition: Object,
     },
     data () {
         return {
@@ -90,7 +80,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../assets/scss/style.scss';
 
 .last-update {
     position: absolute;

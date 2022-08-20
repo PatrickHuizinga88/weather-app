@@ -4,19 +4,9 @@
   <main>
     <WeatherInfo
       v-if="location && current && condition"
-      :name="location.name"
-      :country="location.country"
-      :lastUpdate="current.last_updated"
-      :icon="condition.icon"
-      :text="condition.text"
-      :localTime="location.localtime"
-      :temp="current.temp_c"
-      :feelTemp="current.feelslike_c"
-      :windSpeed="current.wind_kph"
-      :windDirection="current.wind_dir"
-      :humidity="current.humidity"
-      :precip="current.precip_mm"
-      :uvIndex="current.uv"
+      :location="location"
+      :current="current"
+      :condition="condition"
     />
     <button class="add-location btn btn-link d-flex aling-items-center position-absolute start-50 top-50 translate-middle text-decoration-none" @click="$refs.header.showSearchbar = true" v-if="!location">
       <i class="bi bi-plus me-2"></i>
@@ -42,8 +32,8 @@ export default {
   data () {
     return {
       location: null,
-      current: [],
-      condition: [],
+      current: null,
+      condition: null,
       showResults: false
     }
   },
@@ -73,8 +63,8 @@ export default {
     checkDaytime() {
       let isDay = null
 
-      if (this.current) {
-        isDay = this.current.is_day
+      if (this.current !== null) {
+        this.current.is_day === 1 ? isDay = true : isDay = false
       } else {
         const hours = new Date().getHours()
         isDay = hours > 6 && hours < 20
@@ -85,7 +75,7 @@ export default {
 
     // Set background based on time in current/searched location
     setBackground(isDay) {
-      if(isDay === 1 || isDay === true) {
+      if(isDay) {
         document.body.classList.replace('bg-night', 'bg-day')
       } else {
         document.body.classList.replace('bg-day', 'bg-night')

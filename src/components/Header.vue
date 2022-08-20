@@ -9,9 +9,9 @@
                     <i class="bi bi-geo-alt-fill fs-4"></i>
                 </button>
 
-                <form class="d-flex align-items-center w-100" role="search" v-if="showSearchbar">
-                    <button class="btn btn-link" @click.prevent="showSearchbar = false"><i class="bi bi-chevron-left"></i></button>
-                    <input @input="getLocation" v-model="searchQuery" class="form-control bg-dark border-0" type="search" placeholder="Search location" aria-label="Search" ref="searchbar">
+                <form class="d-flex align-items-center w-100" role="search" @submit.prevent="setLocation(locations[0])" v-if="showSearchbar">
+                    <button class="btn btn-link" @click.prevent="showSearchbar = false" type="button"><i class="bi bi-chevron-left"></i></button>
+                    <input @input="getLocations" v-model="searchQuery" class="form-control bg-dark border-0" type="search" placeholder="Search location" aria-label="Search" ref="searchbar">
                 </form>
             </div>
         </nav>
@@ -25,6 +25,7 @@ import SearchResult from '@/components/SearchResult'
 
 export default {
     components: {SearchResult},
+    emits: ['setLocation'],
     data () {
         return {
             showSearchbar: false,
@@ -34,7 +35,7 @@ export default {
     },
     methods: {
         // Fetch all locations based on the search query
-        getLocation() {
+        getLocations() {
             fetch(`https://api.weatherapi.com/v1/search.json?${new URLSearchParams({
                 key: 'ce4eb1b20d3f42a4b64152404212209',
                 q: this.searchQuery
@@ -45,9 +46,9 @@ export default {
             })
         },
         setLocation(location) {
-            this.showSearchbar = false
             this.$emit('setLocation', location)
-        }
+            this.showSearchbar = false
+        },
     },
     watch: {
         showSearchbar(newVal) {
@@ -61,7 +62,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .list-group-item:not(:first-of-type) {
     cursor: pointer;
 

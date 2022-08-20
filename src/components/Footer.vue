@@ -1,24 +1,16 @@
 <template>
-    <footer>
-        <p class="mb-0">Made in Vue by <a href="https://patrickhuizinga88.github.io/">Patrick Huizinga</a></p>
+    <footer class="position-fixed bottom-0 start-0 text-center w-100 opacity-50 py-2">
+        <p class="mb-0">Made in Vue by <a href="https://patrickhuizinga88.github.io/" target="_blank">Patrick Huizinga</a></p>
     </footer>
 </template>
 
 <style lang="scss">
     footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        opacity: 0.6;
-        background: rgba(0, 0, 0, 0.5);
-        text-align: center;
-        padding: 7px 0;
+        background: linear-gradient(0, #000 0%, #fff0 100%);
         transition: 0.3s;
 
         &:hover {
-            opacity: 1;
-            transition: 0.3s;
+            opacity: 1 !important;
         }
     }
 </style>
