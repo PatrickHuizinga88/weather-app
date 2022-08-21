@@ -1,12 +1,12 @@
 <template>
   <Header @setLocation="getLocation" ref="header"/>
 
-  <main>
+  <main class="h-100">
     <WeatherInfo
-      v-if="location && current && condition"
+      v-if="location && current"
       :location="location"
       :current="current"
-      :condition="condition"
+      @updatedData="fetchData"
     />
     <button class="add-location btn btn-link d-flex aling-items-center position-absolute start-50 top-50 translate-middle text-decoration-none" @click="$refs.header.showSearchbar = true" v-if="!location">
       <i class="bi bi-plus me-2"></i>
@@ -51,7 +51,6 @@ export default {
       .then(response => response.json())
       .then(data => {
         this.current = data.current
-        this.condition = data.current.condition
         this.isDay = data.current.is_day
       })
     },

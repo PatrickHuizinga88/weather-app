@@ -6,7 +6,7 @@
 
 <style lang="scss">
     footer {
-        background: linear-gradient(0, #000 0%, #fff0 100%);
+        background: linear-gradient(0, #222a 0%, #fff0 100%);
         transition: 0.3s;
 
         &:hover {

@@ -37,9 +37,9 @@ $link-color:                $body-color;
 
 // Typography
 $font-size-base:                1rem;
-$font-family-base:              'Quicksand', sans-serif;
+$font-family-base:              'Acumin', sans-serif;
 
-$font-weight-normal:            400;
+$font-weight-normal:            500;
 
 // Headings
 $h1-font-size:                  $font-size-base * 2.5;
@@ -48,14 +48,13 @@ $h3-font-size:                  $font-size-base * 1.75;
 $h4-font-size:                  $font-size-base * 1.5;
 $h5-font-size:                  $font-size-base * 1.25;
 $h6-font-size:                  $font-size-base;
-$headings-font-weight:          600;
+$headings-font-weight:          400;
 
 // Displays
 $display-font-sizes: (
   1: 6rem,
 );
 
-$display-font-weight: 900;
 $display-line-height: 1;
 
 // Spacing
